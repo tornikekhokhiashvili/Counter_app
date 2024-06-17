@@ -11,14 +11,14 @@ import android.widget.Button
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
-    lateinit var present_value: Button
-    lateinit var increment: Button
-    lateinit var decrement: Button
-    lateinit var textview:TextView
+    private lateinit var presentValue: Button
+    private lateinit var increment: Button
+    private lateinit var decrement: Button
+    private lateinit var textview:TextView
     var myService:MyService?=null
     var bind=false
 
-    var serviceConnection=object : ServiceConnection {
+    private var serviceConnection=object : ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             val binder=p1 as MyService.Mybinder
             myService=binder.getService()
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         textview=findViewById(R.id.text_view)
-        present_value=findViewById(R.id.present_value)
+        presentValue=findViewById(R.id.present_value)
         increment=findViewById(R.id.increment)
         decrement=findViewById(R.id.decrement)
         increment.setOnClickListener {
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         decrement.setOnClickListener {
             myService?.decrement()
         }
-        present_value.setOnClickListener {
+        presentValue.setOnClickListener {
             textview.text = (myService?.getCounterValue()!!).toString()
         }
     }
